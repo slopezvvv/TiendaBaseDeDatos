@@ -1,7 +1,15 @@
 <?php
 include_once 'modelo/Producto.php';
+include_once 'modelo/Usuario.php';
 session_start();
 
+$usuario = new Usuario();
+$usuario->setUsername("El usuario 1");
+
+// sesion con usuario identificado
+//$_SESSION['usuario'] = serialize($usuario);
+
+// Productos del carrito..
 $todosLosProductos = [];
 $carrito = [];
 
@@ -36,7 +44,16 @@ Este es el catálogo
     </head>
     <body>
         <?php
-        
+        if(isset($_SESSION['usuario'])){
+            ?>
+        <h1>Esto lo ve un usuario identificado</h1>
+        <?php
+        }
+        else{
+            ?>
+            <h1>Esto lo ve un usuario anónimo</h1>
+            <?php
+        }
         ?>
         
         <button onclick='goTo("Login.php")'>Iniciar sesión</button>
